@@ -74,12 +74,13 @@ def months_between(date1,date2):
     return months
 
 def time_taken_checker(imagePath):
+	time = {}
 	try:
 		info = Image.open(imagePath)._getexif()
 		time_taken = info[36867].replace('\x00', '') # get tag value & remove null bytes
 		if time_taken:
-			time_taken_time = time_taken
-			return True
+			time['time_taken'] = time_taken
+			return time
 		else:
 			return False
 	except Exception as e:		
@@ -93,16 +94,20 @@ def time_taken_less_than_six_months(imagePath):
 	# # segment time into hour, minute, second
 	# hour, minute, second = dtime.split(":", 2)
 	# return dtime
+	months = {}
 	info = Image.open(imagePath)._getexif()
 	str_time_taken = info[36867].replace('\x00', '') # get tag value & remove null bytes
 	date_time_taken = dt.datetime.strptime(str_time_taken, '%Y:%m:%d %H:%M:%S')
 	date_time_now = dt.datetime.now()
 	month_difference = months_between(date_time_taken, date_time_now)
-	time_taken_month = month_difference
 	if month_difference < 6:
-		return True
+		months['month_passed'] = True
+		months['month_difference'] = month_difference
+		return months
 	else:
-		return False
+		months['month_passed'] = False
+		months['month_difference'] = month_difference
+		return months
 
 # def text_checker(image):
 # 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -400,8 +405,12 @@ background_color = background_checker(colors_count)
 cv2.imwrite('results/result.jpg', image)
 
 # Criteria 1
-if time_taken_checker(imagePath) == True:	
-	if time_taken_less_than_six_months(imagePath) == True:
+time_taken_check = time_taken_checker(imagePath)
+if time_taken_check:	
+	time_taken_less_than_six_months_check = time_taken_less_than_six_months(imagePath)
+	time_taken_time = time_taken_check['time_taken']
+	time_taken_month = time_taken_less_than_six_months_check['month_difference']
+	if time_taken_less_than_six_months_check['month_passed']:
 		is_less_than_six_months = True
 	else:
 		is_less_than_six_months = False
@@ -483,4 +492,5 @@ print "5.   Is preferable background?", is_preferable_background
 print "===================================="
 print "#        Test Case Result          #"
 print "===================================="
-print passed
+print time_taken_time
+print time_taken_month
