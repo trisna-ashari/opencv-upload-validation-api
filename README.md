@@ -1,6 +1,5 @@
 # OpenCV Upload Validation API
 
-## Introductions
 This is image processing for upload validation again some requirements focused on content on uploaded image. Using `Python` and `OpenCV` as opensource language and libraries.
 Each object (face, face & upperbody, left-right eye, nose, mouth) detections are now using `Haarcascade`. `Haarcascade` files stored in `haarcascades` directory. 
 Another further and advanced solutions for better object detections can use `Dlib`, but need more time to explore that library.
@@ -11,7 +10,7 @@ Another further and advanced solutions for better object detections can use `Dli
 	Solutions: 
     > Get metadata from the image file by reading the `EXIF 'tag'`.
 
-* **Clear, focused image with no marks or ‘red’-eye**
+* **Clear, focused image with no marks or ï¿½redï¿½-eye**
 
 	Solutions: 
 	> **_Clear & focused_**: extract main area of the photo (face), scale it then convert to gray scale color. Finally detect blury area by openCV `Laplacian` function.
@@ -43,19 +42,25 @@ Another further and advanced solutions for better object detections can use `Dli
     
     > Populate and count color each pixel the the most "common" color in the image, the most color of RGB value most larger than `rgb(127,127,127)`. RGB of gray color is `rgb (128,128,128)`.
 
-Installations:
-## Minimum System Requirements:
+## Instant Install
+You can run instant setup by running installation script on project root.
+```
+$ bash install.sh
+```
+
+## Manual Installations:
+#### Minimum System Requirements:
 	Ubuntu 16.04
 	Python 2.7
 	OpenCV 2.4.9.1
 	Django REST Framework 3.9.0
 
-## Recommended System Requirements:
+#### Recommended System Requirements:
 	Ubuntu 18.04
 	Python 3+
 	OpenCV 3+
 
-## Installing Python and OpenCV
+#### Installing Python and OpenCV
 
 ```
 $ sudo apt update
@@ -64,7 +69,7 @@ $ sudo apt install python-opencv
 $ sudo apt install python-pip
 ```
 
-## Check OpenCV installation
+#### Check OpenCV installation
 
 ```
 $ python3
@@ -75,17 +80,17 @@ $ python3
 
 (Press Ctrl+D to Exit)
 
-## Installing Python ExifRead Libray
+#### Installing Python ExifRead Libray
 ```
 $ pip install exifread
 ```
 
-## Installing Python Pillow Libray
+#### Installing Python Pillow Libray
 ```
 $ pip install pillow
 ```
 
-## Installing Djangorestframework
+#### Installing Djangorestframework
 ```
 $ pip install numpy django requests
 $ pip install djangorestframework
@@ -93,17 +98,17 @@ $ pip install markdown
 $ pip install django-filter
 ```
 
-## Upload and Unzip opencv_upload_vaidation_api.zip
+#### Upload and Unzip opencv_upload_vaidation_api.zip
 ```
 $ cd opencv-upload-validation-api
 ```
 
-## Open and allow Port 8000
+#### Open and allow Port 8000
 ```
 $ sudo ufw allow 8000
 ```
 
-## Running Application
+#### Running Application
 [WITH DJANGO REST FRAMEWORK]
 ```
 $ python manage.py runserver 0.0.0.0:8000
@@ -151,25 +156,25 @@ Est. Background is rgb(255,0,255)!
 False
 ```
 
-##### [LOCAL HOST]
+###### [LOCAL HOST]
 
 CURL from remote file:
 ```
-$ curl -X POST 'http://localhost:8000/validation/validate/' -d 'url=http://209.97.161.116/opencv_upload_validation_api/samples/d.jpg'
+$ curl -X POST 'http://localhost:8000/validation/validate/' -d 'url=http://www.example.com/image.jpg'
 ```
 CURL from local file:
 ```
-$ curl -X POST 'http://localhost:8000/validation/validate/' -F "image=@/mnt/c/xampp/htdocs/trisna-ashari/opencv_upload_validation_api/samples/d.jpg"
+$ curl -X POST 'http://localhost:8000/validation/validate/' -F "image=@samples/d.jpg"
 ```
 
-##### [LIVE HOST]
+###### [LIVE HOST]
 Example Live Server:
 Endpoint: 
 ```
 http://209.97.161.116:8000/validation/validate/
 ```
 
-##### [EXAMPLE OUTPUT]:
+###### [EXAMPLE OUTPUT]:
 Invalid or Bad request (no url or no file submitted)
 
 	{"passes": false}
