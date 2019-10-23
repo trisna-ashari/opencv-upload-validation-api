@@ -42,13 +42,18 @@ Another further and advanced solutions for better object detections can use `Dli
     
     > Populate and count color each pixel the the most "common" color in the image, the most color of RGB value most larger than `rgb(127,127,127)`. RGB of gray color is `rgb (128,128,128)`.
 
-## Instant Install
+
+# Installation for Mac
+### TODO
+
+# Installation for Ubuntu
+### Instant Install
 You can run instant setup by running installation script on project root.
 ```
 $ bash install.sh
 ```
 
-## Manual Installations:
+### Manual Installations:
 #### Minimum System Requirements:
 	Ubuntu 16.04
 	Python 2.7
