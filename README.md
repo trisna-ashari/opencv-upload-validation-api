@@ -54,18 +54,18 @@ $ bash install.sh
 ```
 
 ### Manual Installations:
-#### Minimum System Requirements:
-	Ubuntu 16.04
-	Python 2.7
-	OpenCV 2.4.9.1
-	Django REST Framework 3.9.0
+Minimum System Requirements:
+* Ubuntu 16.04
+* Python 2.7
+* OpenCV 2.4.9.1
+* Django REST Framework 3.9.0
 
-#### Recommended System Requirements:
-	Ubuntu 18.04
-	Python 3+
-	OpenCV 3+
+Recommended System Requirements:
+* Ubuntu 18.04
+* Python 3+
+* OpenCV 3+
 
-#### Installing Python and OpenCV
+Installing Python and OpenCV
 
 ```
 $ sudo apt update
@@ -74,7 +74,7 @@ $ sudo apt install python-opencv
 $ sudo apt install python-pip
 ```
 
-#### Check OpenCV installation
+Check OpenCV installation
 
 ```
 $ python3
@@ -85,17 +85,17 @@ $ python3
 
 (Press Ctrl+D to Exit)
 
-#### Installing Python ExifRead Libray
+Installing Python ExifRead Libray
 ```
 $ pip install exifread
 ```
 
-#### Installing Python Pillow Libray
+Installing Python Pillow Libray
 ```
 $ pip install pillow
 ```
 
-#### Installing Djangorestframework
+Installing Djangorestframework
 ```
 $ pip install numpy django requests
 $ pip install djangorestframework
@@ -103,18 +103,17 @@ $ pip install markdown
 $ pip install django-filter
 ```
 
-#### Upload and Unzip opencv_upload_vaidation_api.zip
+Upload and Unzip opencv_upload_vaidation_api.zip
 ```
 $ cd opencv-upload-validation-api
 ```
 
-#### Open and allow Port 8000
+Open and allow Port 8000
 ```
 $ sudo ufw allow 8000
 ```
 
-#### Running Application
-[WITH DJANGO REST FRAMEWORK]
+Running Application with Django Rest Framework
 ```
 $ python manage.py runserver 0.0.0.0:8000
 ```
@@ -128,13 +127,14 @@ Starting development server at http://0.0.0.0:8000/
 Quit the server with CONTROL-C.
 ```
 
-[WITHOUT DJANGO REST FRAMEWORK]
+Running Application without Django Rest Framework
 ```
 $ python validator.py samples/d.jpg
 ```
 
 
 ```
+
 ====================================
 #      All Detetcion Results       #
 ====================================
@@ -159,9 +159,8 @@ Est. Background is rgb(255,0,255)!
 #        Test Case Result          #
 ====================================
 False
-```
 
-###### [LOCAL HOST]
+```
 
 CURL from remote file:
 ```
@@ -172,14 +171,11 @@ CURL from local file:
 $ curl -X POST 'http://localhost:8000/validation/validate/' -F "image=@samples/d.jpg"
 ```
 
-###### [LIVE HOST]
-Example Live Server:
-Endpoint: 
+Upload an image to your live server at:
 ```
-http://209.97.161.116:8000/validation/validate/
+[POST] http://your_ip:8000/validation/validate/
 ```
 
-###### [EXAMPLE OUTPUT]:
 Invalid or Bad request (no url or no file submitted)
 
 	{"passes": false}
