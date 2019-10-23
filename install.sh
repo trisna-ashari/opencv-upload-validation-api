@@ -38,14 +38,11 @@ python manage.py migrate
 printf "\n#${YELLOW} Open PORT 8000:${NC}\n"
 sudo ufw allow 8000
 
-# Start server
-printf "\n#${YELLOW} Start server at PORT 8000:${NC}\n"
-python manage.py runserver 0.0.0.0:8000
-
-# Test by CURL
+# Test by validator
 printf "\n#${YELLOW} Running test:${NC}\n"
-curl -X POST 'http://localhost:8000/validation/validate/' -F "image=@samples/a.jpg"
+python validator.py samples/d.jpg
 
+printf "\n#${YELLOW} Credit to:${NC}\n"
 cat <<"EOF"
 
     Powered By:
@@ -59,3 +56,7 @@ cat <<"EOF"
     ##################################################################
 
 EOF
+
+# Start server
+printf "\n#${YELLOW} Start server at PORT 8000:${NC}\n"
+python manage.py runserver 0.0.0.0:8000
