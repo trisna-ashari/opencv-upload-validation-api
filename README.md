@@ -44,7 +44,121 @@ Another further and advanced solutions for better object detections can use `Dli
 
 
 # Installation for Mac
-### TODO
+System Requirements:
+* XCode already installed
+
+#### Step 1: Install Homebrew
+Update Homebrew
+```
+$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+$ brew update
+```
+
+Add Homebrew path in PATH
+```
+$ echo "# Homebrew" >> ~/.bash_profile
+$ echo "export PATH=/usr/local/bin:$PATH" >> ~/.bash_profile
+$ source ~/.bash_profile
+```
+
+#### Step 2: Install Python 2
+
+Install python2
+```
+$ brew install python
+$ brew link python
+$ brew upgrade python
+```
+
+Check python path, it should output `/usr/local/bin/python2`
+```
+$ which python2
+```
+
+Check python version, it should output like `Python 2.7.16`
+```
+$ python2 --version
+```
+
+Add this command to `~/.bash_profile`, so you can call `python2` by type `python`
+```
+$ echo "export PATH=/usr/local/opt/python/libexec/bin:$PATH" >> ~/.bash_profile
+```
+
+#### Step 3: Install Python libraries in a Virtual Environment
+
+Install virtual environment
+```
+$ pip install virtualenv virtualenvwrapper
+$ echo "# Virtual Environment Wrapper"
+$ echo "VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2" >> ~/.bash_profile
+$ echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bash_profile
+$ source ~/.bash_profile
+```
+
+Create virtual environment
+```
+$ mkvirtualenv opencv-py2 -p python2
+$ workon opencv-py2
+```
+
+Install python libraries within this virtual environment
+```
+$ pip install exifread numpy django requests djangorestframework markdown django-filter pillow scipy matplotlib scikit-image scikit-learn ipython pandas
+```
+
+Quit virtual environment
+```
+$ deactivate
+```
+
+#### Step 4: Install OpenCV
+Install OpenCV
+```
+$ brew install opencv
+```
+
+Add OpenCV’s site-packages path to global site-packages
+```
+$ echo /usr/local/opt/opencv/lib/python2.7/site-packages >> /usr/local/lib/python2.7/site-packages/opencv3.pth
+```
+
+Use this command to find out the path of OpenCV on your machine
+```
+$ find /usr/local/opt/opencv/lib/ -name cv2*.so
+```
+
+Make OpenCV3 Python symlink in our virtual environment
+```
+$ cd ~/.virtualenvs/facecourse-py2/lib/python2.7/site-packages/
+$ ln -s /usr/local/opt/opencv/lib//python3.7/site-packages/cv2/python-3.7/cv2.cpython-37m-darwin.so cv2.so
+```
+
+Install opencv-python
+```
+$ pip install opencv-python==3.1.0.0
+```
+
+#### Step 5: Test OpenCV
+
+Activate virtual environment
+```
+$ workon opencv-py2
+$ python
+$ >>> import cv2
+$ >>> cv2.__version__
+```
+
+#### Step 6: Run Project
+Test sample with validator
+```
+$ python2 validator.py samples/a.jpg
+```
+
+Run Django REST Framework
+```
+$ python2 manage.py runserver 0.0.0.0:8000
+```
 
 # Installation for Ubuntu
 ### Instant Install
@@ -65,7 +179,7 @@ Recommended System Requirements:
 * Python 3+
 * OpenCV 3+
 
-Installing Python and OpenCV
+Install Python and OpenCV
 
 ```
 $ sudo apt update
@@ -132,8 +246,10 @@ Running Application without Django Rest Framework
 $ python validator.py samples/d.jpg
 ```
 
-
+# Example Test Output
+Run test by validator
 ```
+$ python validator.py samples/d.jpg
 
 ====================================
 #      All Detetcion Results       #
