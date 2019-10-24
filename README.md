@@ -24,7 +24,6 @@ Another further and advanced solutions for better object detections can use `Dli
 
 #### 2. Clear, focused image with no marks or red-eye
 * `Clear & focused`: extract main area of the photo (face), scale it then convert to gray scale color. Finally detect blury area by openCV `Laplacian` function.
-
 * `Red Eye`: extract two areas (left eye & right eye), keep the color, blur it so the area are smoothed, and then convert from `Blue, Green, Red (BGR)` color to `HSV (Hue, Saturation, Value)`. Each area then processed by detecting contour per pixel by range of "lower-upper" of (red eye color BRG color).
 
 #### 3. Head or head and shoulders (upperbody)
@@ -33,7 +32,6 @@ Another further and advanced solutions for better object detections can use `Dli
 #### 4. Face looking at the camera (face detection: left eye, right eye, nose, mouth)
 * Detect and extract face area in the image then split it into four parts by `X-Y coordinate` (top-middle-left, top-middle-right, middle-middle, bottom-middle).
 * Each area must contains object like left-right eye, nose, and mouth.
-
     - Top-middle-left: left-eye
     - Top-middle-right: right-eye
     - Middle-middle: nose
