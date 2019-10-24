@@ -1,46 +1,48 @@
-# OpenCV Upload Validation API
+## Table of Contents
+- [What is OpenCV Upload Validation API?](#what-is-opencv-upload-validation-api)
+- [Requirements & Solutions](#requirements--solutions)
+    - [1. Good quality photo, less than 6 months old](#1-good-quality-photo-less-than-6-months-old)
+    - [2. Clear, focused image with no marks or red-eye](#2-clear-focused-image-with-no-marks-or-red-eye)
+    - [3. Head or head and shoulders (upperbody)](#3-head-or-head-and-shoulders-upperbody)
+    - [4. Face looking at the camera (face detection: left eye, right eye, nose, mouth)](#4-face-looking-at-the-camera-face-detection-left-eye-right-eye-nose-mouth)
+    - [5. Plain background preferably white or light grey](#5-plain-background-preferably-white-or-light-grey)
+- [Installation for Mac](#installation-for-mac)
+- [Installation for Ubuntu](#installation-for-ubuntu)
+- [Example Test Output](#example-test-output)
+- [License](#license)
+- [Copyright](#copyright)
 
+## What is OpenCV Upload Validation API?
 This is image processing for upload validation again some requirements focused on content on uploaded image. Using `Python` and `OpenCV` as opensource language and libraries.
 Each object (face, face & upperbody, left-right eye, nose, mouth) detections are now using `Haarcascade`. `Haarcascade` files stored in `haarcascades` directory. 
 Another further and advanced solutions for better object detections can use `Dlib`, but need more time to explore that library.
 
 ## Requirements & Solutions
-* **Good quality photo, less than 6 months old ?**
+#### 1. Good quality photo, less than 6 months old
+* Photo taken from the camera contains `EXIF 'tag'`.
+* Get metadata from the image file by reading the `EXIF 'tag'`.
 
-	Solutions: 
-    > Get metadata from the image file by reading the `EXIF 'tag'`.
+#### 2. Clear, focused image with no marks or red-eye
+* `Clear & focused`: extract main area of the photo (face), scale it then convert to gray scale color. Finally detect blury area by openCV `Laplacian` function.
 
-* **Clear, focused image with no marks or �red�-eye**
+* `Red Eye`: extract two areas (left eye & right eye), keep the color, blur it so the area are smoothed, and then convert from `Blue, Green, Red (BGR)` color to `HSV (Hue, Saturation, Value)`. Each area then processed by detecting contour per pixel by range of "lower-upper" of (red eye color BRG color).
 
-	Solutions: 
-	> **_Clear & focused_**: extract main area of the photo (face), scale it then convert to gray scale color. Finally detect blury area by openCV `Laplacian` function.
+#### 3. Head or head and shoulders (upperbody)
+* Detect face or face and upperbody using haarcascades (face & upperbody) by some iamge scale and ratio definition will match again upperbody ratio.
 
-	> **_Red Eye_**: extract two areas (left eye & right eye), keep the color, blur it so the area are smoothed, and then convert from `Blue, Green, Red (BGR)` color to `HSV (Hue, Saturation, Value)`. Each area then processed by detecting contour per pixel by range of "lower-upper" of (red eye color BRG color).
+#### 4. Face looking at the camera (face detection: left eye, right eye, nose, mouth)
+* Detect and extract face area in the image then split it into four parts by `X-Y coordinate` (top-middle-left, top-middle-right, middle-middle, bottom-middle).
+* Each area must contains object like left-right eye, nose, and mouth.
 
-* **Head or head and shoulders (upperbody)**
+    - Top-middle-left: left-eye
+    - Top-middle-right: right-eye
+    - Middle-middle: nose
+    - Bottom-middle: mouth
+* Must be found at least one left-right eye and one nose also one mouth.
 
-	Solutions: 
-    
-    > Detect face or face and upperbody using haarcascades (face & upperbody) by some iamge scale and ratio definition will match again upperbody ratio.
-
-* **Face looking at the camera (face detection: left eye, right eye, nose, mouth)**
-
-	Solutions:
-	> Detect and extract face area in the image then split it into four parts by `X-Y coordinate` (top-middle-left, top-middle-right, middle-middle, bottom-middle).
-	> Each area must contains object like left-right eye, nose, and mouth.
-	
-		- Top-middle-left: left-eye
-		- Top-middle-right: right-eye
-		- Middle-middle: nose
-		- Bottom-middle: mouth
-
-	> Must be found at least one left-right eye and one nose also one mouth.
-
-* **Plain background preferably white or light grey ?**
-
-	Solutions: 
-    
-    > Populate and count color each pixel the the most "common" color in the image, the most color of RGB value most larger than `rgb(127,127,127)`. RGB of gray color is `rgb (128,128,128)`.
+#### 5. Plain background preferably white or light grey
+* Populate and count color each pixel the the most "common" color in the image
+* The most color of RGB value most larger than `rgb(127,127,127)`. RGB of gray color is `rgb (128,128,128)`.
 
 
 # Installation for Mac
@@ -179,8 +181,9 @@ Recommended System Requirements:
 * Python 3+
 * OpenCV 3+
 
-Install Python and OpenCV
+#### Step 1: Install Python and OpenCV
 
+Install OpenCV
 ```
 $ sudo apt update
 $ sudo apt upgrade
@@ -199,6 +202,7 @@ $ python3
 
 (Press Ctrl+D to Exit)
 
+#### Step 2: Install python libraries
 Installing Python ExifRead Libray
 ```
 $ pip install exifread
@@ -217,7 +221,14 @@ $ pip install markdown
 $ pip install django-filter
 ```
 
-Upload and Unzip opencv_upload_vaidation_api.zip
+#### Step 3: Clone repository & setup project
+
+Clone repository
+```
+$ git clone https://gitlab.com/trisnaashari/opencv-upload-validation-api.git
+```
+
+Enter project directory
 ```
 $ cd opencv-upload-validation-api
 ```
@@ -227,6 +238,7 @@ Open and allow Port 8000
 $ sudo ufw allow 8000
 ```
 
+#### Step 4: Run project
 Running Application with Django Rest Framework
 ```
 $ python manage.py runserver 0.0.0.0:8000
@@ -309,3 +321,11 @@ Valid request
 			"is_red_eye_found": false
 		}
 	}
+	
+## License
+
+MIT License. See LICENSE for details.
+
+## Copyright
+
+Copyright (c) 2017-2019 Trisna Novi Ashari.
