@@ -1,3 +1,8 @@
+# OpenCV Upload Validation API
+An advanced photo upload validation with OpenCV libraries.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Table of Contents
 - [What is OpenCV Upload Validation API?](#what-is-opencv-upload-validation-api)
 - [Requirements & Solutions](#requirements--solutions)
